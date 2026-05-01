@@ -1,0 +1,451 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Flavortown Stats</title>
+<style>
+  :root {
+    --bg: #0f1115; --panel: #181b22; --text: #e8eaed;
+    --muted: #8a93a4; --accent: #ffb347; --accent2: #ff7a59;
+    --border: #2a2f3a; --green: #6fe39a; --blue: #6fb9e3;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; padding: 32px 24px;
+    background: var(--bg); color: var(--text);
+    font: 14px/1.5 -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  }
+  .wrap { max-width: 1200px; margin: 0 auto; }
+  h1 { margin: 0 0 4px; font-size: 28px; }
+  h1 .accent { color: var(--accent); }
+  h2 { margin: 32px 0 12px; font-size: 18px; color: var(--accent); }
+  .sub { color: var(--muted); margin-bottom: 16px; }
+  a { color: var(--accent2); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  .nav { margin-bottom: 16px; }
+  .nav a { margin-right: 12px; color: var(--accent); }
+
+  .disclaimer {
+    background: #2a1f0f; border: 1px solid #4a3f1f; color: #e3c46f;
+    padding: 10px 14px; border-radius: 8px; margin-bottom: 16px; font-size: 13px;
+  }
+  .disclaimer strong { color: #ffd87a; }
+
+  .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px; }
+  .stat {
+    background: var(--panel); border: 1px solid var(--border);
+    border-radius: 12px; padding: 16px;
+  }
+  .stat .num { font-size: 28px; font-weight: 700; color: var(--accent); }
+  .stat .lbl { color: var(--muted); font-size: 12px; text-transform: uppercase; letter-spacing: 0.04em; margin-bottom: 4px; }
+  .stat .sub { color: var(--muted); font-size: 12px; margin-top: 4px; }
+
+  .panel {
+    background: var(--panel); border: 1px solid var(--border);
+    border-radius: 12px; padding: 20px;
+  }
+
+  .bar-row {
+    display: grid; grid-template-columns: 160px 1fr 80px;
+    gap: 12px; align-items: center; padding: 4px 0;
+  }
+  .bar-label { color: var(--text); font-size: 13px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .bar-track { background: #11141a; border-radius: 4px; height: 18px; overflow: hidden; }
+  .bar-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--accent2), var(--accent));
+    border-radius: 4px;
+  }
+  .bar-value { color: var(--muted); font-size: 12px; text-align: right; font-variant-numeric: tabular-nums; }
+
+  table { width: 100%; border-collapse: collapse; }
+  th, td { padding: 8px 10px; text-align: left; border-bottom: 1px solid var(--border); font-size: 13px; }
+  th { color: var(--muted); font-weight: 600; font-size: 11px; text-transform: uppercase; letter-spacing: 0.04em; }
+  td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; }
+  tr:last-child td { border-bottom: 0; }
+
+  .row-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  @media (max-width: 720px) { .row-2 { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1><span class="accent">📊</span> Flavortown Stats</h1>
+  <div class="sub">Aggregate stats across all scraped projects and votes</div>
+  <div class="nav"><a href="index.html">🏆 Leaderboard</a></div>
+  <div class="disclaimer">
+    ⚠️ Data snapshot taken <strong>2026-05-01 05:22 UTC</strong>. Numbers may be out of date — this page is a static
+    export and does not refresh from the live API.
+  </div>
+
+  <h2>Overview</h2>
+  <div class="grid">
+    <div class="stat"><div class="lbl">Projects scraped</div><div class="num">3,213</div></div>
+    <div class="stat"><div class="lbl">Total vote records</div><div class="num">40,558</div></div>
+    <div class="stat"><div class="lbl">Ranked (have percentile)</div><div class="num">1,809</div><div class="sub">56.3% of projects</div></div>
+    <div class="stat"><div class="lbl">Payout-eligible (≥12 votes)</div><div class="num">1,612</div></div>
+    <div class="stat"><div class="lbl">Projects with 0 votes</div><div class="num">671</div></div>
+    <div class="stat"><div class="lbl">Anonymous votes</div><div class="num">3.0%</div><div class="sub">1,210 of 40,558</div></div>
+  </div>
+
+  <h2>Average score per category (1–9 scale)</h2>
+  <div class="panel">
+    
+        <div class="bar-row">
+          <div class="bar-label">Originality</div>
+          <div class="bar-track"><div class="bar-fill" style="width:59.9%"></div></div>
+          <div class="bar-value">5.39</div>
+        </div>
+        <div class="bar-row">
+          <div class="bar-label">Technical</div>
+          <div class="bar-track"><div class="bar-fill" style="width:58.1%"></div></div>
+          <div class="bar-value">5.23</div>
+        </div>
+        <div class="bar-row">
+          <div class="bar-label">Usability</div>
+          <div class="bar-track"><div class="bar-fill" style="width:57.2%"></div></div>
+          <div class="bar-value">5.15</div>
+        </div>
+        <div class="bar-row">
+          <div class="bar-label">Storytelling</div>
+          <div class="bar-track"><div class="bar-fill" style="width:55.9%"></div></div>
+          <div class="bar-value">5.03</div>
+        </div>
+    <table style="margin-top:16px;">
+      <thead><tr><th>Category</th><th class="num">Mean</th><th class="num">Median</th><th class="num">Std dev</th></tr></thead>
+      <tbody>
+  <tr><td>Originality</td><td class="num">5.39</td>
+      <td class="num">6.0</td><td class="num">1.66</td></tr>
+  <tr><td>Technical</td><td class="num">5.23</td>
+      <td class="num">5.0</td><td class="num">1.71</td></tr>
+  <tr><td>Usability</td><td class="num">5.15</td>
+      <td class="num">5.0</td><td class="num">1.69</td></tr>
+  <tr><td>Storytelling</td><td class="num">5.03</td>
+      <td class="num">5.0</td><td class="num">1.70</td></tr></tbody>
+    </table>
+    <div class="sub" style="margin-top:8px;">Voters reward originality most generously and storytelling most stingily.</div>
+  </div>
+
+  <div class="row-2">
+    <div>
+      <h2>Vote score distribution (originality)</h2>
+      <div class="panel">
+        <div class="bar-row">
+          <div class="bar-label">1</div>
+          <div class="bar-track"><div class="bar-fill" style="width:5.6%"></div></div>
+          <div class="bar-value">568</div>
+        </div>
+        <div class="bar-row">
+          <div class="bar-label">2</div>
+          <div class="bar-track"><div class="bar-fill" style="width:15.0%"></div></div>
+          <div class="bar-value">1,525</div>
+        </div>
+        <div class="bar-row">
+          <div class="bar-label">3</div>
+          <div class="bar-track"><div class="bar-fill" style="width:30.6%"></div></div>
+          <div class="bar-value">3,106</div>
+        </div>
+        <div class="bar-row">
+          <div class="bar-label">4</div>
+          <div class="bar-track"><div class="bar-fill" style="width:63.0%"></div></div>
+          <div class="bar-value">6,404</div>
+        </div>
+        <div class="bar-row">
+          <div class="bar-label">5</div>
+          <div class="bar-track"><div class="bar-fill" style="width:84.0%"></div></div>
+          <div class="bar-value">8,539</div>
+        </div>
+        <div class="bar-row">
+          <div class="bar-label">6</div>
+          <div class="bar-track"><div class="bar-fill" style="width:100.0%"></div></div>
+          <div class="bar-value">10,163</div>
+        </div>
+        <div class="bar-row">
+          <div class="bar-label">7</div>
+          <div class="bar-track"><div class="bar-fill" style="width:62.6%"></div></div>
+          <div class="bar-value">6,362</div>
+        </div>
+        <div class="bar-row">
+          <div class="bar-label">8</div>
+          <div class="bar-track"><div class="bar-fill" style="width:29.9%"></div></div>
+          <div class="bar-value">3,036</div>
+        </div>
+        <div class="bar-row">
+          <div class="bar-label">9</div>
+          <div class="bar-track"><div class="bar-fill" style="width:8.4%"></div></div>
+          <div class="bar-value">855</div>
+        </div></div>
+    </div>
+    <div>
+      <h2>Project percentile distribution</h2>
+      <div class="panel">
+        <div class="bar-row">
+          <div class="bar-label">0-10</div>
+          <div class="bar-track"><div class="bar-fill" style="width:74.5%"></div></div>
+          <div class="bar-value">196</div>
+        </div>
+        <div class="bar-row">
+          <div class="bar-label">10-20</div>
+          <div class="bar-track"><div class="bar-fill" style="width:81.4%"></div></div>
+          <div class="bar-value">214</div>
+        </div>
+        <div class="bar-row">
+          <div class="bar-label">20-30</div>
+          <div class="bar-track"><div class="bar-fill" style="width:70.0%"></div></div>
+          <div class="bar-value">184</div>
+        </div>
+        <div class="bar-row">
+          <div class="bar-label">30-40</div>
+          <div class="bar-track"><div class="bar-fill" style="width:70.0%"></div></div>
+          <div class="bar-value">184</div>
+        </div>
+        <div class="bar-row">
+          <div class="bar-label">40-50</div>
+          <div class="bar-track"><div class="bar-fill" style="width:81.7%"></div></div>
+          <div class="bar-value">215</div>
+        </div>
+        <div class="bar-row">
+          <div class="bar-label">50-60</div>
+          <div class="bar-track"><div class="bar-fill" style="width:73.4%"></div></div>
+          <div class="bar-value">193</div>
+        </div>
+        <div class="bar-row">
+          <div class="bar-label">60-70</div>
+          <div class="bar-track"><div class="bar-fill" style="width:35.7%"></div></div>
+          <div class="bar-value">94</div>
+        </div>
+        <div class="bar-row">
+          <div class="bar-label">70-80</div>
+          <div class="bar-track"><div class="bar-fill" style="width:100.0%"></div></div>
+          <div class="bar-value">263</div>
+        </div>
+        <div class="bar-row">
+          <div class="bar-label">80-90</div>
+          <div class="bar-track"><div class="bar-fill" style="width:49.0%"></div></div>
+          <div class="bar-value">129</div>
+        </div>
+        <div class="bar-row">
+          <div class="bar-label">90-100</div>
+          <div class="bar-track"><div class="bar-fill" style="width:52.1%"></div></div>
+          <div class="bar-value">137</div>
+        </div></div>
+    </div>
+  </div>
+
+  <h2>Time taken to vote</h2>
+  <div class="panel">
+    
+        <div class="bar-row">
+          <div class="bar-label">&lt;30s</div>
+          <div class="bar-track"><div class="bar-fill" style="width:7.3%"></div></div>
+          <div class="bar-value">1,129</div>
+        </div>
+        <div class="bar-row">
+          <div class="bar-label">30-60s</div>
+          <div class="bar-track"><div class="bar-fill" style="width:32.1%"></div></div>
+          <div class="bar-value">4,945</div>
+        </div>
+        <div class="bar-row">
+          <div class="bar-label">1-2m</div>
+          <div class="bar-track"><div class="bar-fill" style="width:77.9%"></div></div>
+          <div class="bar-value">11,992</div>
+        </div>
+        <div class="bar-row">
+          <div class="bar-label">2-5m</div>
+          <div class="bar-track"><div class="bar-fill" style="width:100.0%"></div></div>
+          <div class="bar-value">15,387</div>
+        </div>
+        <div class="bar-row">
+          <div class="bar-label">5-10m</div>
+          <div class="bar-track"><div class="bar-fill" style="width:33.6%"></div></div>
+          <div class="bar-value">5,172</div>
+        </div>
+        <div class="bar-row">
+          <div class="bar-label">10-30m</div>
+          <div class="bar-track"><div class="bar-fill" style="width:12.2%"></div></div>
+          <div class="bar-value">1,874</div>
+        </div>
+        <div class="bar-row">
+          <div class="bar-label">&gt;30m</div>
+          <div class="bar-track"><div class="bar-fill" style="width:0.4%"></div></div>
+          <div class="bar-value">59</div>
+        </div>
+    <div class="grid" style="margin-top:16px;">
+      <div class="stat"><div class="lbl">Median</div><div class="num">133s</div></div>
+      <div class="stat"><div class="lbl">Mean</div><div class="num">216s</div></div>
+      <div class="stat"><div class="lbl">P10 / P90</div><div class="num" style="font-size:18px;">50s / 414s</div></div>
+      <div class="stat"><div class="lbl">Max</div><div class="num">78,561s</div><div class="sub">21.8h on a single vote</div></div>
+    </div>
+  </div>
+
+  <h2>Votes per project</h2>
+  <div class="panel">
+        <div class="bar-row">
+          <div class="bar-label">0</div>
+          <div class="bar-track"><div class="bar-fill" style="width:61.8%"></div></div>
+          <div class="bar-value">671</div>
+        </div>
+        <div class="bar-row">
+          <div class="bar-label">1-5</div>
+          <div class="bar-track"><div class="bar-fill" style="width:29.4%"></div></div>
+          <div class="bar-value">319</div>
+        </div>
+        <div class="bar-row">
+          <div class="bar-label">6-11</div>
+          <div class="bar-track"><div class="bar-fill" style="width:56.3%"></div></div>
+          <div class="bar-value">611</div>
+        </div>
+        <div class="bar-row">
+          <div class="bar-label">12-20</div>
+          <div class="bar-track"><div class="bar-fill" style="width:100.0%"></div></div>
+          <div class="bar-value">1,085</div>
+        </div>
+        <div class="bar-row">
+          <div class="bar-label">21-50</div>
+          <div class="bar-track"><div class="bar-fill" style="width:43.5%"></div></div>
+          <div class="bar-value">472</div>
+        </div>
+        <div class="bar-row">
+          <div class="bar-label">51+</div>
+          <div class="bar-track"><div class="bar-fill" style="width:5.1%"></div></div>
+          <div class="bar-value">55</div>
+        </div></div>
+
+  <div class="row-2">
+    <div>
+      <h2>Top 15 voters</h2>
+      <div class="panel">
+        <div class="bar-row">
+          <div class="bar-label">46009361</div>
+          <div class="bar-track"><div class="bar-fill" style="width:100.0%"></div></div>
+          <div class="bar-value">330</div>
+        </div>
+        <div class="bar-row">
+          <div class="bar-label">aneezakiran07</div>
+          <div class="bar-track"><div class="bar-fill" style="width:85.2%"></div></div>
+          <div class="bar-value">281</div>
+        </div>
+        <div class="bar-row">
+          <div class="bar-label">Alex</div>
+          <div class="bar-track"><div class="bar-fill" style="width:78.8%"></div></div>
+          <div class="bar-value">260</div>
+        </div>
+        <div class="bar-row">
+          <div class="bar-label">Simon</div>
+          <div class="bar-track"><div class="bar-fill" style="width:67.9%"></div></div>
+          <div class="bar-value">224</div>
+        </div>
+        <div class="bar-row">
+          <div class="bar-label">arnav.upadhyay40</div>
+          <div class="bar-track"><div class="bar-fill" style="width:61.2%"></div></div>
+          <div class="bar-value">202</div>
+        </div>
+        <div class="bar-row">
+          <div class="bar-label">abtheinnovator</div>
+          <div class="bar-track"><div class="bar-fill" style="width:60.0%"></div></div>
+          <div class="bar-value">198</div>
+        </div>
+        <div class="bar-row">
+          <div class="bar-label">Divyansh</div>
+          <div class="bar-track"><div class="bar-fill" style="width:59.7%"></div></div>
+          <div class="bar-value">197</div>
+        </div>
+        <div class="bar-row">
+          <div class="bar-label">Priyanshu</div>
+          <div class="bar-track"><div class="bar-fill" style="width:53.9%"></div></div>
+          <div class="bar-value">178</div>
+        </div>
+        <div class="bar-row">
+          <div class="bar-label">coolcream</div>
+          <div class="bar-track"><div class="bar-fill" style="width:53.9%"></div></div>
+          <div class="bar-value">178</div>
+        </div>
+        <div class="bar-row">
+          <div class="bar-label">Abdulgafar Abdurrasheed</div>
+          <div class="bar-track"><div class="bar-fill" style="width:53.3%"></div></div>
+          <div class="bar-value">176</div>
+        </div>
+        <div class="bar-row">
+          <div class="bar-label">Sadiya</div>
+          <div class="bar-track"><div class="bar-fill" style="width:52.4%"></div></div>
+          <div class="bar-value">173</div>
+        </div>
+        <div class="bar-row">
+          <div class="bar-label">ego</div>
+          <div class="bar-track"><div class="bar-fill" style="width:52.1%"></div></div>
+          <div class="bar-value">172</div>
+        </div>
+        <div class="bar-row">
+          <div class="bar-label">thebiraj_hkr</div>
+          <div class="bar-track"><div class="bar-fill" style="width:50.0%"></div></div>
+          <div class="bar-value">165</div>
+        </div>
+        <div class="bar-row">
+          <div class="bar-label">arav6635</div>
+          <div class="bar-track"><div class="bar-fill" style="width:49.4%"></div></div>
+          <div class="bar-value">163</div>
+        </div>
+        <div class="bar-row">
+          <div class="bar-label">neetumandavi25</div>
+          <div class="bar-track"><div class="bar-fill" style="width:49.1%"></div></div>
+          <div class="bar-value">162</div>
+        </div></div>
+    </div>
+    <div>
+      <h2>Top 10 most-voted projects</h2>
+      <div class="panel">
+        <table>
+          <thead><tr><th>Project</th><th class="num">Votes</th><th class="num">Pct</th></tr></thead>
+          <tbody>
+  <tr><td><a href="https://flavortown.hackclub.com/projects/1909" target="_blank" rel="noopener">Aaloo</a></td>
+      <td class="num">281</td>
+      <td class="num">—</td></tr>
+  <tr><td><a href="https://flavortown.hackclub.com/projects/3456" target="_blank" rel="noopener">Aesthetically Idle</a></td>
+      <td class="num">210</td>
+      <td class="num">—</td></tr>
+  <tr><td><a href="https://flavortown.hackclub.com/projects/17607" target="_blank" rel="noopener">ESP32 GAMEBOY EMULATOR</a></td>
+      <td class="num">176</td>
+      <td class="num">86.5</td></tr>
+  <tr><td><a href="https://flavortown.hackclub.com/projects/18079" target="_blank" rel="noopener">Particle Sandbox using Javascript</a></td>
+      <td class="num">134</td>
+      <td class="num">58.0</td></tr>
+  <tr><td><a href="https://flavortown.hackclub.com/projects/10271" target="_blank" rel="noopener">Kopuz</a></td>
+      <td class="num">118</td>
+      <td class="num">75.5</td></tr>
+  <tr><td><a href="https://flavortown.hackclub.com/projects/9709" target="_blank" rel="noopener">HytaleModding</a></td>
+      <td class="num">115</td>
+      <td class="num">86.6</td></tr>
+  <tr><td><a href="https://flavortown.hackclub.com/projects/12072" target="_blank" rel="noopener">Isometric Island</a></td>
+      <td class="num">113</td>
+      <td class="num">99.7</td></tr>
+  <tr><td><a href="https://flavortown.hackclub.com/projects/15802" target="_blank" rel="noopener">EcliPanel</a></td>
+      <td class="num">110</td>
+      <td class="num">99.1</td></tr>
+  <tr><td><a href="https://flavortown.hackclub.com/projects/8322" target="_blank" rel="noopener">tungsten</a></td>
+      <td class="num">109</td>
+      <td class="num">95.1</td></tr>
+  <tr><td><a href="https://flavortown.hackclub.com/projects/4903" target="_blank" rel="noopener">Zen AI</a></td>
+      <td class="num">109</td>
+      <td class="num">70.2</td></tr></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <h2>Reasons & integrity</h2>
+  <div class="grid">
+    <div class="stat"><div class="lbl">Votes with written reason</div><div class="num">81.5%</div><div class="sub">33,045 of 40,558</div></div>
+    <div class="stat"><div class="lbl">Median reason length</div><div class="num">100c</div></div>
+    <div class="stat"><div class="lbl">Mean reason length</div><div class="num">137c</div></div>
+    <div class="stat"><div class="lbl">Longest reason</div><div class="num">4,575c</div></div>
+  </div>
+
+  <h2>Correlations</h2>
+  <div class="panel">
+    <p>Pearson correlation between <strong>vote count</strong> and <strong>overall percentile</strong>:
+       <span style="color:var(--green); font-weight:700; font-size:18px;">r = 0.244</span> (n=1,809 ranked projects)</p>
+    <p style="color:var(--muted);">Weak positive — popular projects are <em>slightly</em> higher rated, but vote count is not a strong predictor of percentile.</p>
+  </div>
+</div>
+</body>
+</html>
